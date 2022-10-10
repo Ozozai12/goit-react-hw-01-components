@@ -1,11 +1,6 @@
-import {
-  OnlineStatus,
-  FriendListContainer,
-  FriendBadge,
-  FriendsImage,
-  FriendsName,
-} from './FriendList.styled';
+import { FriendListContainer, FriendBadge } from './FriendList.styled';
 import PropTypes from 'prop-types';
+import { FriendListItem } from '../FriendListItem/FriendListItem';
 
 export const FriendList = ({ friends }) => {
   return (
@@ -13,16 +8,11 @@ export const FriendList = ({ friends }) => {
       {friends.map(friend => {
         return (
           <FriendBadge key={friend.id}>
-            <OnlineStatus active={friend.isOnline === true}>
-              {friend.isOnline}
-            </OnlineStatus>
-            <FriendsImage
-              className="avatar"
-              src={friend.avatar}
-              alt="User avatar"
-              width="48"
+            <FriendListItem
+              avatar={friend.avatar}
+              name={friend.name}
+              isOnline={friend.isOnline}
             />
-            <FriendsName>{friend.name}</FriendsName>
           </FriendBadge>
         );
       })}
@@ -31,14 +21,10 @@ export const FriendList = ({ friends }) => {
 };
 
 FriendList.propTypes = {
-  friends: PropTypes.arrayOf(
-    PropTypes.exact({
-      avatar: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      isOnline: PropTypes.bool.isRequired,
-      id: PropTypes.number.isRequired,
-    })
-  ),
+  friends: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    isOnline: PropTypes.bool.isRequired,
+  })),
 };
-
-
